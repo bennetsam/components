@@ -61,7 +61,7 @@ export class CalendarComponent implements OnInit {
     // create a model of the dates for the calendar 
     const dayCount = new Date(date.year, month, 0).getDate();
     for (let val = 1; val <= dayCount; val++) {
-      days.push({ date: val, weekday, week, isFirstweekday: val === 1 });
+      days.push({ date: val, weekday, week, isFirstweekday: val === 1, isToday: val === this.currentSelection.today.day });
       if (weekday === this.calendarWeek.size) {
         weekday = 1;
         week++;

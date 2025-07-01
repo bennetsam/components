@@ -21,7 +21,7 @@
 		@for (day of days; track day) {
 		<ng-container
 									*ngTemplateOutlet="defaultDateTemplate; 
-									context: { weekday:day.weekday, date: day.date, isFirst: day.isFirst, disabled: day.disabled }"></ng-container>
+									context: { weekday:day.weekday, date: day.date, isFirst: day.isFirst, disabled: day.disabled, today: day.isToday }"></ng-container>
 
 		}
 
@@ -33,9 +33,14 @@
 						 let-weekday="weekday"
 						 let-date="date"
 						 let-isFirst="isFirst"
-						 let-disabled="disabled">
+						 let-disabled="disabled"
+						 let-today="today">
 	<div class="day"
-			 [ngClass]="{'border-left': (startWithSunday ? weekday === 7 : weekday === 1) || isFirst , 'weekend': (weekday === 6 || weekday === 7), 'disable': disabled}">
+			 [ngClass]="{
+				'border-left': (startWithSunday ? weekday === 7 : weekday === 1) || isFirst , 
+				'weekend': (weekday === 6 || weekday === 7), 
+				'disable': disabled,
+				'today': today }">
 		{{date ? date : ''}}&nbsp;
 	</div>
 </ng-template>

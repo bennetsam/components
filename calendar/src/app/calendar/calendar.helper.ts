@@ -7,6 +7,7 @@ export interface IDay {
     isFirstweekday?: boolean;
     isFirst?: boolean;
     disabled?: boolean;
+    isToday?: boolean;
 }
 
 export const WEEKDAYS = {
