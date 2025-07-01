@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
-import { IDay } from './calendar.helper';
+import { CurrentDate, FIRST_DAY_IN_MONTH, IDay, MONTHS, WEEKDAYS } from './calendar.helper';
 @Component({
   selector: 'app-calendar',
   imports: [CommonModule],
@@ -14,26 +14,25 @@ export class CalendarComponent implements OnInit {
   // follows the id as luxon lib. i.e 1 for Monday
   calendarWeek = new Map();
   calendarWeek1 = new Map([
-    [1, 'Monday'],
-    [2, 'Tuesday'],
-    [3, 'Wednesday'],
-    [4, 'Thursday'],
-    [5, 'Friday'],
-    [6, 'Saturday'],
-    [7, 'Sunday']
+    [WEEKDAYS.monday, 'Monday'],
+    [WEEKDAYS.tuesday, 'Tuesday'],
+    [WEEKDAYS.wednesday, 'Wednesday'],
+    [WEEKDAYS.thrusday, 'Thursday'],
+    [WEEKDAYS.friday, 'Friday'],
+    [WEEKDAYS.saturday, 'Saturday'],
+    [WEEKDAYS.sunday, 'Sunday']
   ]);
   calendarWeek2 = new Map([
-    [7, 'Sunday'],
-    [1, 'Monday'],
-    [2, 'Tuesday'],
-    [3, 'Wednesday'],
-    [4, 'Thursday'],
-    [5, 'Friday'],
-    [6, 'Saturday']
+    [WEEKDAYS.sunday, 'Sunday'],
+    [WEEKDAYS.monday, 'Monday'],
+    [WEEKDAYS.tuesday, 'Tuesday'],
+    [WEEKDAYS.wednesday, 'Wednesday'],
+    [WEEKDAYS.thrusday, 'Thursday'],
+    [WEEKDAYS.friday, 'Friday'],
+    [WEEKDAYS.saturday, 'Saturday']
   ]);
-  firstweekday: number = 1;
   monthName: string = '';
-  currentSelection: { year: number, month: number, today: DateTime } = {
+  currentSelection: CurrentDate = {
     year: DateTime.now().year,
     month: DateTime.now().month,
     today: DateTime.now()
@@ -50,7 +49,6 @@ export class CalendarComponent implements OnInit {
     const month = date.month;
     this.monthName = date.monthLong ?? '';
     const firstday = DateTime.local(date.year, month, 1);
-    this.firstweekday = firstday.weekday;
     const days: IDay[] = [];
     let weekday = firstday.weekday;
     let week = 1;
@@ -137,26 +135,26 @@ export class CalendarComponent implements OnInit {
     console.log(this.currentSelection.month);
     if (this.currentSelection.month <= 0) {
       this.currentSelection.year--;
-      this.currentSelection.month = 12;
+      this.currentSelection.month = MONTHS.lastMonth;
     }
-    if (this.currentSelection.month > 12) {
+    if (this.currentSelection.month > MONTHS.lastMonth) {
       this.currentSelection.year++;
-      this.currentSelection.month = 1;
+      this.currentSelection.month = MONTHS.firstMonth;
     }
-    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, 1);
+    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, FIRST_DAY_IN_MONTH);
     this.createCalendar(date);
 
   }
 
   showOtherMonthDates(): void {
     this.enableOtherMonth = !this.enableOtherMonth;
-    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, 1);
+    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, FIRST_DAY_IN_MONTH);
     this.createCalendar(date);
   }
 
   toggleSundayOption(): void {
     this.startWithSunday = !this.startWithSunday;
-    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, 1);
+    const date = DateTime.local(this.currentSelection.year, this.currentSelection.month, FIRST_DAY_IN_MONTH);
     this.createCalendar(date);
   }
 
