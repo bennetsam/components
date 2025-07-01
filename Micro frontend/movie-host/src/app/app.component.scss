@@ -1,0 +1,29 @@
+.container {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #f9f9f9;
+  h1 {
+    text-align: center;
+    width: 100%;
+  }
+  .wrapper-container {
+    display: flex;
+    min-height: 20em;
+    padding: 5px;
+    .wrapper {
+      background-color: #fff;
+      margin: 0 5px;
+      box-shadow: 0px 2px 4px 1px #c7c7c7;
+      padding: 20px 5px;
+    }
+    .left {
+      flex: 3;
+    }
+    .right {
+      flex: 1;
+    }
+  }
+}

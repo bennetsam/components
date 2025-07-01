@@ -1,0 +1,41 @@
+<!-- configure section -->
+<div class="month-selector display-flex">
+
+	<button (click)="navigateMonth(-1)">Previous</button>
+	<a>{{monthName}} {{currentSelection.year}}</a>
+	<button (click)="navigateMonth(1)">Next</button>
+</div>
+<div>
+	<button (click)="showOtherMonthDates()">{{enableOtherMonth ? 'Hide' : 'Show'}} other month dates</button>
+	<button (click)="toggleSundayOption()">{{startWithSunday ? 'End with' : 'Start with'}} Sunday</button>
+</div>
+@if (days.length > 0) {
+<div class="calendar">
+	<div class="weekdays flex-nowrap">
+		@for (day of calendarWeek.values(); track day; let idx = $index) {
+		<div class="day-names"
+				 [ngClass]="{'border-left': idx === 0}">{{day}}</div>
+		}
+	</div>
+	<div class="month-days">
+		@for (day of days; track day) {
+		<ng-container
+									*ngTemplateOutlet="defaultDateTemplate; 
+									context: { weekday:day.weekday, date: day.date, isFirst: day.isFirst, disabled: day.disabled }"></ng-container>
+
+		}
+
+	</div>
+</div>
+}
+
+<ng-template #defaultDateTemplate
+						 let-weekday="weekday"
+						 let-date="date"
+						 let-isFirst="isFirst"
+						 let-disabled="disabled">
+	<div class="day"
+			 [ngClass]="{'border-left': (startWithSunday ? weekday === 7 : weekday === 1) || isFirst , 'weekend': (weekday === 6 || weekday === 7), 'disable': disabled}">
+		{{date ? date : ''}}&nbsp;
+	</div>
+</ng-template>

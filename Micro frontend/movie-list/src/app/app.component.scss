@@ -1,0 +1,43 @@
+.title {
+  text-align: center;
+}
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  justify-content: space-between;
+  .movie-card {
+    padding: 10px;
+    margin: 10px 0px;
+    text-align: center;
+    width: 18%;
+    box-shadow: 0px 1px 2px 2px #ebebef;
+    .movie-poster {
+      height: 75%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 100%;
+      flex-shrink: 0;
+      min-width: 100%;
+      min-height: 100%;
+      max-height: 100%;
+    }
+    h3 {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    button {
+      background-color: white;
+      border: none;
+      box-shadow: 1px 1px 3px 0px grey;
+      height: 30px;
+      align-items: center;
+      width: 75%;
+      cursor: pointer;
+    }
+  }
+}

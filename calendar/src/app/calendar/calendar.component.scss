@@ -1,0 +1,49 @@
+$valueOne: 1;
+.calendar {
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  .weekdays, .month-days {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    .day-names {
+      flex: 0 0 calc(80%/7);
+      border: 1px solid;
+      border-left: 0px;
+      padding: 5px 1%;  
+    }
+
+  }
+.disable {
+    background-color: #e1e1e1;
+    color: darkgrey;
+}
+  .day {
+    border: 1px solid;
+    border-top: 0px;
+    border-left: 0px;
+    padding: 3% 1%;
+    flex: 0 0 calc(80%/7);
+  }
+}
+.month-selector {
+  justify-content: center;
+  a {
+    flex: 0 0 12.7%;
+    text-align: center;
+  }
+}
+.display-flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.border-left {
+    border-left: 1px solid !important;
+}
+.flex-nowrap {
+    flex-wrap: nowrap !important;
+}
