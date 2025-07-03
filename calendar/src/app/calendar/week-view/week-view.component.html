@@ -1,0 +1,31 @@
+<div class="calendar">
+  <div class="weekNumber">{{'Week ' + weekNumber}}</div>
+  <div class="week-calendar-view">
+    <div class="time-view">
+      <div class="time-placeholder"></div>
+      @for (time of timeList; track time) {
+        <div class="time-container" [ngClass]="time.includes('30') ? 'dashed-line': 'solid-line'">{{time}}</div>
+      }
+    </div>
+    <div class="week-event-view">
+      <div class="weekdays flex-nowrap">  
+        @for (day of daylist.values(); track day; let idx = $index) {
+          <div class="day-container">
+            <div class="day-names"
+                [ngClass]="{'border-left': idx === 0}">
+              <div>{{day.date}}</div>
+              <div>{{day.title}}</div>
+            </div>
+            @for (time of timeList; track time) {
+              <div class="time-container" [ngClass]="time.includes('30') ? 'dashed-line': 'solid-line'"></div>
+            }
+          </div>
+        }
+      </div>
+      <div class="event-container">
+       
+      </div>
+    </div>
+
+  </div>
+</div>

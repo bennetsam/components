@@ -1,46 +1,46 @@
 <!-- configure section -->
-<div class="month-selector display-flex">
 
-	<button (click)="navigateMonth(-1)">Previous</button>
-	<a>{{monthName}} {{currentSelection.year}}</a>
-	<button (click)="navigateMonth(1)">Next</button>
-</div>
-<div>
-	<button (click)="showOtherMonthDates()">{{enableOtherMonth ? 'Hide' : 'Show'}} other month dates</button>
-	<button (click)="toggleSundayOption()">{{startWithSunday ? 'End with' : 'Start with'}} Sunday</button>
-</div>
-@if (days.length > 0) {
-<div class="calendar">
-	<div class="weekdays flex-nowrap">
-		@for (day of calendarWeek.values(); track day; let idx = $index) {
-		<div class="day-names"
-				 [ngClass]="{'border-left': idx === 0}">{{day}}</div>
-		}
+<div class="button-cluster">
+	<div class="month-selector display-flex">
+		<button (click)="navigateMonth(-1)">&#10094;<!--Previous--></button>
+		<a>{{monthName}} {{currentSelection.year}}</a>
+		<button (click)="navigateMonth(1)">&#10095;<!--Next--></button>
 	</div>
-	<div class="month-days">
-		@for (day of days; track day) {
-		<ng-container
-									*ngTemplateOutlet="defaultDateTemplate; 
-									context: { weekday:day.weekday, date: day.date, isFirst: day.isFirst, disabled: day.disabled, today: day.isToday }"></ng-container>
+	<button (click)="showOtherMonthDates()">{{options.enableOtherMonth ? 'Hide' : 'Show'}} other month dates</button>
+	<button (click)="toggleSundayOption()">{{options.startWithSunday ? 'End with' : 'Start with'}} Sunday</button>
+</div>
+<div class="tab-list">
+	@for (tab of tabs; track tab) {
+	<div class="tab"
+			 (click)="tabSelected(tab.id)">{{tab.name}}</div>
+	}
+</div>
 
-		}
+@switch (selectedTab) {
+@case (1) {
+<month-view [daylist]="calendarWeek"
+						[days]="days"
+						[startWithSunday]="options.startWithSunday"></month-view>
+}
+@case (2) {
+<div class="week-view">
+	<div class="month-calendar">
 
+		<month-view [daylist]="calendarWeek"
+								[days]="days"
+								[startWithSunday]="options.startWithSunday"
+								(updateWeek)="updateWeek($event)"></month-view>
+	</div>
+	<div class="week-calendar">
+
+		<week-view [daylist]="calendarWeek"
+							 [calendarView]="calendarView"
+							 [days]="days"
+							 [startWithSunday]="options.startWithSunday"></week-view>
 	</div>
 </div>
 }
-
-<ng-template #defaultDateTemplate
-						 let-weekday="weekday"
-						 let-date="date"
-						 let-isFirst="isFirst"
-						 let-disabled="disabled"
-						 let-today="today">
-	<div class="day"
-			 [ngClass]="{
-				'border-left': (startWithSunday ? weekday === 7 : weekday === 1) || isFirst , 
-				'weekend': (weekday === 6 || weekday === 7), 
-				'disable': disabled,
-				'today': today }">
-		{{date ? date : ''}}&nbsp;
-	</div>
-</ng-template>
+@default {
+<day-view></day-view>
+}
+}

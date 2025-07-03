@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 
 export interface IDay {
+    selected?: boolean;
     date?: number;
     week?: number;
     weekday: number;
@@ -31,4 +32,22 @@ export interface CurrentDate {
     year: number;
     month: number;
     today: DateTime;
+}
+
+export interface ICalendarOptions {
+    enableOtherMonth?: boolean;
+    startWithSunday?: boolean;
+};
+
+export interface IWeek {
+    startDate: DateTime<boolean>;
+    endDate: DateTime<boolean>;
+    weekNumber: number;
+    options: ICalendarOptions | undefined;
+}
+
+export interface IWeekDate {
+    eventName?: any;
+    title: string;
+    date?: number;
 }
